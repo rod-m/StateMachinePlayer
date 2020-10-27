@@ -8,16 +8,16 @@ namespace GenericStateSystem
     {
         protected BaseCharacter _character;
         protected GenericStateMachine _stateMachine;
-
         protected GenericState(BaseCharacter _c, GenericStateMachine _s)
         {
             _character = _c;
             _stateMachine = _s;
         }
-        public virtual void BeginState() { }
-        public void UpdateState() { }
-        public virtual void TransitionState() { }
-        public virtual void EndState() { }
+        public abstract void BeginState();
+        public abstract void UpdateState();
+        public abstract void PhysicsControl();
+        public abstract void TransitionState();
+        public abstract void EndState();
 
     }
 }

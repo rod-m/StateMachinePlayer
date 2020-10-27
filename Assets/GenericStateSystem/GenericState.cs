@@ -2,17 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenericState : MonoBehaviour
+namespace GenericStateSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public abstract class GenericState
     {
-        
-    }
+        protected BaseCharacter character;
+        protected GenericStateMachine stateMachine;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected GenericState(BaseCharacter _c, GenericStateMachine _s)
+        {
+            this.character = _c;
+            this.stateMachine = _s;
+        }
+
+        public virtual void BeginState()
+        {
+        }
+
+        public virtual void EndState()
+        {
+        }
+
+        public virtual void MovementControl()
+        {
+        }
+
+        public virtual void StateTransition()
+        {
+        }
+
+        public virtual void PhysicsControl()
+        {
+        }
     }
 }

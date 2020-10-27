@@ -1,11 +1,11 @@
-namespace GenericStateSystem
-{
-    public interface IState
+    namespace GenericStateSystem
     {
-        void BeginState();
-        void TransitionState();
-        void UpdateState();
-        void EndState();
-        
+        public interface IState
+        {
+            void BeginState();
+            void UpdateState();
+            void TransitionState();
+            void EndState();
+            
+        }
     }
-}

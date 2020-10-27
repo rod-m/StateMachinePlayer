@@ -4,18 +4,26 @@ using UnityEngine;
 
 namespace GenericStateSystem
 {
-    public abstract class GenericState
+    public abstract class GenericState : IState
     {
-        protected BaseCharacter character;
-        protected GenericStateMachine stateMachine;
+        protected BaseCharacter _character;
+        protected GenericStateMachine _stateMachine;
 
         protected GenericState(BaseCharacter _c, GenericStateMachine _s)
         {
-            this.character = _c;
-            this.stateMachine = _s;
+            _character = _c;
+            _stateMachine = _s;
         }
 
         public virtual void BeginState()
+        {
+        }
+
+        public void TransitionState()
+        {
+   
+        }
+        public void UpdateState()
         {
         }
 
@@ -26,11 +34,7 @@ namespace GenericStateSystem
         public virtual void MovementControl()
         {
         }
-
-        public virtual void StateTransition()
-        {
-        }
-
+        
         public virtual void PhysicsControl()
         {
         }

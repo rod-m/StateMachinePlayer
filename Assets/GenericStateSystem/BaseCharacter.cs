@@ -1,23 +1,26 @@
+using System;
 using GenericStateSystem.ActionStates;
 using UnityEngine;
 
 namespace GenericStateSystem
 {
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody))]
     public abstract class BaseCharacter : MonoBehaviour
     {
         #region Variables
-
+        public bool useCharacterForward = false;
         [HideInInspector] public Animator anim;
         [HideInInspector] public Rigidbody rb;
+     
         public float collisionOverlapRadius = 0.1f;
         public LayerMask whatIsGround;
-
+        
         #endregion Variables
 
         #region States
 
-        public DefaultState defaultState;
+        public IState defaultState;
 
         #endregion
 
@@ -27,24 +30,7 @@ namespace GenericStateSystem
 
         #endregion StateMachineVariables
 
-        #region AbstractMethods
-
-        public abstract void Move(Vector2 _move);
-
-        #endregion AbstractMethods
-
         #region Animation
-
-        public void SetAnimationBool(int param, bool value)
-        {
-            anim.SetBool(param, value);
-        }
-
-        public void TriggerAnimation(int param)
-        {
-            anim.SetTrigger(param);
-        }
-
         public bool IsGrounded()
         {
             return Physics.OverlapSphere(transform.position, collisionOverlapRadius, whatIsGround).Length > 0;
@@ -63,13 +49,16 @@ namespace GenericStateSystem
             stateMachine.InitState(defaultState);
         }
 
-        private void Update()
+        void Update()
         {
             stateMachine.ActiveState.UpdateState();
         }
-        private void FixedUpdate(){    
-            stateMachine.ActiveState.PhysicsControl();
+    
+        private void FixedUpdate()
+        {
+            stateMachine.ActiveState.UpdatePhysicsState();
         }
+
         #endregion MonoBehaviour Callbacks
     }
 }

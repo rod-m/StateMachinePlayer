@@ -15,7 +15,7 @@ namespace GenericStateSystem
         }
         public abstract void BeginState();
         public abstract void UpdateState();
-        public abstract void PhysicsControl();
+        public abstract void UpdatePhysicsState();
         public abstract void TransitionState();
         public abstract void EndState();
 

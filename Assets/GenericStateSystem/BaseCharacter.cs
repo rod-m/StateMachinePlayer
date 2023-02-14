@@ -15,6 +15,7 @@ namespace GenericStateSystem
      
         public float collisionOverlapRadius = 0.1f;
         public LayerMask whatIsGround;
+        public LayerMask whatToChase;
         public float jumpForce = 3f;
         #endregion Variables
 
@@ -52,6 +53,7 @@ namespace GenericStateSystem
         void Update()
         {
             stateMachine.ActiveState.UpdateState();
+            stateMachine.ActiveState.TransitionState();
         }
     
         private void FixedUpdate()

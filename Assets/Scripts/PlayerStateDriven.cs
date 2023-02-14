@@ -9,7 +9,8 @@ public class PlayerStateDriven : BaseCharacter
     public override void Start()
     {
  
-        base.Start();  
+        base.Start();
+        
         defaultState = new MoveState(this, stateMachine);
         //stateMachine.InitState(defaultState);
         stateMachine.MakeTransition(defaultState);

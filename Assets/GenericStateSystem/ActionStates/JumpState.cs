@@ -16,11 +16,13 @@ namespace GenericStateSystem.ActionStates
             // set anim
             _startJump = 0;
             _anim = _character.anim;
-            _anim.SetTrigger("Jump");
             if (_character.IsGrounded())
             {
-                _character.rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+                _anim.applyRootMotion = false;
+                _character.rb.AddForce(Vector3.up * _character.jumpForce, ForceMode.Impulse);
             }
+            _anim.SetTrigger("Jump");
+           
            
         }
 
@@ -34,12 +36,13 @@ namespace GenericStateSystem.ActionStates
             RaycastHit hit;
             //float distToGround = 999999999f;
             // Does the ray intersect any objects excluding the player layer
-            if (Physics.Raycast(_character.transform.position, _character.transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, _character.whatIsGround))
+            if (Physics.Raycast(_character.transform.position, _character.transform.TransformDirection(Vector3.down), out hit, 3f, _character.whatIsGround))
             {
                 Debug.DrawRay(_character.transform.position, _character.transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-                Debug.Log($"Did Hit dist {hit.distance} velocity y {_character.rb.velocity.y}");
-                if (_character.rb.velocity.y < 0 && hit.distance < 2f)
+                if (_character.rb.velocity.y < -0.1f && hit.distance < 1.75f)
                 {
+                    Debug.Log($"Did Hit dist {hit.distance} velocity y {_character.rb.velocity.y}");
+
                     _character.stateMachine.MakeTransition(_character.defaultState);
                 }
             }
@@ -57,12 +60,15 @@ namespace GenericStateSystem.ActionStates
 
         public override void TransitionState()
         {
+            
         }
 
         public override void EndState()
         {
             // trigger land animation... 
+            _startJump = 0;
             _anim.SetTrigger("Landed");
+            _anim.applyRootMotion = true;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GenericStateSystem
      
         public float collisionOverlapRadius = 0.1f;
         public LayerMask whatIsGround;
-        
+        public float jumpForce = 3f;
         #endregion Variables
 
         #region States

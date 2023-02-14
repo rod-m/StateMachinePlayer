@@ -43,7 +43,7 @@ namespace GenericStateSystem.ActionStates
         public override void TransitionState()
         {
            // something that changes state here, crouch, jump etc
-           if (Input.GetKeyDown(KeyCode.RightShift))
+           if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.Space))
            {
                // go jumpstate
                //_character.stateMachine.InitState(new JumpState(_character, _character.stateMachine));

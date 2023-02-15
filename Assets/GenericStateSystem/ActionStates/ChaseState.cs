@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GenericStateSystem.ActionStates
 {
-    public class ChaseState: GenericState
+    public class ChaseState: NPCGenericState
     {
         private Transform chasingCharacter;
         private Quaternion _lookRotation;
@@ -27,12 +27,13 @@ namespace GenericStateSystem.ActionStates
                     chasingCharacter = hit.transform;
                 }
             }
+
+          
         }
 
         public override void UpdateState()
         {
-            if (chasingCharacter != null)
-            {
+            
                 // go here
                 //find the vector pointing from our position to the target
                 Vector3 _direction = (chasingCharacter.position - _character.transform.position).normalized;
@@ -45,15 +46,8 @@ namespace GenericStateSystem.ActionStates
                 _character.transform.rotation = Quaternion.Slerp(_character.transform.rotation, Quaternion.Euler(euler),
                     Time.deltaTime * _rotationSpeed);
                 _character.anim.SetFloat("Speed", 0.6f);
-                if (Vector3.Distance(_character.transform.position, chasingCharacter.position) < 0.75f)
-                {
-                    //arrived
-                    Debug.Log($"Caught  {chasingCharacter.name}");
-                    var chase = new PatrolState(_character, _character.stateMachine);
-                    _character.stateMachine.MakeTransition(chase);
-                    
-                }
-            }
+             
+            
         }
 
         public override void UpdatePhysicsState()
@@ -63,7 +57,25 @@ namespace GenericStateSystem.ActionStates
 
         public override void TransitionState()
         {
-  
+            if (chasingCharacter == null)
+            {
+                var newState = new PatrolState(_character, _character.stateMachine);
+                _character.stateMachine.MakeTransition(newState);
+                return;
+            }
+            float dist = Vector3.Distance(_character.transform.position, chasingCharacter.position);
+            if (dist > 6f)
+            {
+                //arrived
+                Debug.Log($"Lost him  {chasingCharacter.name}");
+                var newState = new PatrolState(_character, _character.stateMachine);
+                _character.stateMachine.MakeTransition(newState);
+                    
+            } else if (dist < 1f)
+            {
+                //attack
+                Debug.Log($"Attack him  {chasingCharacter.name}");
+            }
         }
 
         public override void EndState()

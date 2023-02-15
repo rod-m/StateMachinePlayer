@@ -4,16 +4,17 @@ using UnityEngine;
 
 namespace GenericStateSystem.ActionStates
 {
-    public class PatrolState : GenericState
+    public class PatrolState : NPCGenericState
     {
         private GameObject[] _patrolPoints;
         private Quaternion _lookRotation;
         private float _rotationSpeed = 5f;
         GameObject closestPoint = null;
         private int patrolIndex = 0;
-
+        
         public PatrolState(BaseCharacter _c, GenericStateMachine _s) : base(_c, _s)
         {
+            
         }
 
         public override void BeginState()
@@ -68,21 +69,28 @@ namespace GenericStateSystem.ActionStates
         public override void TransitionState()
         {
             Vector3 p1 = _character.transform.position + Vector3.up;
-        
+        float targetDistance = Single.MaxValue;
+        ;
             RaycastHit hit;
             Debug.DrawRay(p1,
                 _character.transform.TransformDirection(Vector3.forward) * 6f, Color.red);
+            Debug.DrawRay(p1,
+                _character.transform.TransformDirection(Vector3.back) * 6f, Color.red);
             if (Physics.SphereCast(p1, 1.5f, _character.transform.forward, out hit, 10, _character.whatToChase))
             {
-                
-                if (hit.distance < 4f)
-                {
-                    Debug.Log($"Player in range {hit.distance}");
-                    var chase = new ChaseState(_character, _character.stateMachine);
-                    _character.stateMachine.MakeTransition(chase);
-                }
+                targetDistance = hit.distance;
             }
-
+            // back
+            if (Physics.SphereCast(p1, 1.5f, _character.transform.forward * -1, out hit, 10, _character.whatToChase))
+            {
+                targetDistance = hit.distance;
+            }
+            if (targetDistance < 4f)
+            {
+                Debug.Log($"Player in range {hit.distance}");
+                var chase = new ChaseState(_character, _character.stateMachine);
+                _character.stateMachine.MakeTransition(chase);
+            }
         }
     
 

@@ -2,7 +2,7 @@ using GenericStateSystem;
 using GenericStateSystem.ActionStates;
 using UnityEngine;
 
-public class PlayerStateDriven : BaseCharacter
+public class PlayerStateDriven : PlayerBaseCharacter
 {
 
     #region MonoBehaviour Callbacks

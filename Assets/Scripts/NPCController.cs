@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class NPCController : BaseCharacter
+    public class NPCController : NPCBaseCharacter
     {
         #region MonoBehaviour Callbacks
         

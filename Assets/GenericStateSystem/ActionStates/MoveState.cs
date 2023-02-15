@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GenericStateSystem.ActionStates
 {
-    public class MoveState : GenericState
+    public class MoveState : PlayerGenericState
     {
         #region Variables
         public bool UseCharacterForward = true;

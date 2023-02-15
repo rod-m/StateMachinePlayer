@@ -7,6 +7,6 @@
             void UpdatePhysicsState();
             void TransitionState();
             void EndState();
-            
+          
         }
     }

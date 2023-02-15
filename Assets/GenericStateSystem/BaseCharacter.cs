@@ -9,14 +9,11 @@ namespace GenericStateSystem
     public abstract class BaseCharacter : MonoBehaviour
     {
         #region Variables
-        public bool useCharacterForward = false;
+        
         [HideInInspector] public Animator anim;
         [HideInInspector] public Rigidbody rb;
      
-        public float collisionOverlapRadius = 0.1f;
-        public LayerMask whatIsGround;
-        public LayerMask whatToChase;
-        public float jumpForce = 3f;
+       
         #endregion Variables
 
         #region States
@@ -31,14 +28,6 @@ namespace GenericStateSystem
 
         #endregion StateMachineVariables
 
-        #region Animation
-        public bool IsGrounded()
-        {
-            return Physics.OverlapSphere(transform.position, collisionOverlapRadius, whatIsGround).Length > 0;
-        }
-
-        #endregion Animation
-
         #region MonoBehaviour Callbacks
 
         public virtual void Start()
@@ -52,8 +41,9 @@ namespace GenericStateSystem
 
         void Update()
         {
-            stateMachine.ActiveState.UpdateState();
             stateMachine.ActiveState.TransitionState();
+            stateMachine.ActiveState.UpdateState();
+
         }
     
         private void FixedUpdate()

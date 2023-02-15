@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GenericStateSystem.ActionStates
 {
-    public class JumpState : GenericState
+    public class JumpState : PlayerGenericState
     {
         private Animator _anim;
         public float JumpForce = 10f;

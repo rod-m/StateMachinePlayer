@@ -8,7 +8,7 @@ namespace GenericStateSystem.ActionStates
     {
         private GameObject[] _patrolPoints;
         private Quaternion _lookRotation;
-        private float _rotationSpeed = 5f;
+        //private float _rotationSpeed = 5f;
         GameObject closestPoint = null;
         private int patrolIndex = 0;
         
@@ -26,12 +26,13 @@ namespace GenericStateSystem.ActionStates
         {
             // where am I going
             _patrolPoints = GameObject.FindGameObjectsWithTag("PatrolPoint");
-            float closest = Single.MaxValue;
+           // float closest = Single.MaxValue;
             closestPoint = _patrolPoints[patrolIndex % _patrolPoints.Length];
 
 
             if (closestPoint != null)
             {
+                _character.currentTarget = closestPoint.transform;
                 Debug.Log($"Goto at patrol point {closestPoint.name}");
                 patrolIndex++;
             }
@@ -41,18 +42,8 @@ namespace GenericStateSystem.ActionStates
         {
             if (closestPoint != null)
             {
-                // go here
-                //find the vector pointing from our position to the target
-                Vector3 _direction = (closestPoint.transform.position - _character.transform.position).normalized;
-
-                //create the rotation we need to be in to look at the target
-                //_character.transform.rotation = Quaternion.LookRotation(_direction);
-                _lookRotation = Quaternion.LookRotation(_direction);
-                var eulerY = _lookRotation.eulerAngles.y;
-                var euler = new Vector3(0, eulerY, 0);
-                _character.transform.rotation = Quaternion.Slerp(_character.transform.rotation, Quaternion.Euler(euler),
-                    Time.deltaTime * _rotationSpeed);
-                _character.anim.SetFloat("Speed", 0.6f);
+                _character.FaceCurrentTarget(0);
+                _character.anim.SetFloat("Speed", _character.patrolSpeed);
                 if (Vector3.Distance(_character.transform.position, closestPoint.transform.position) < 0.5f)
                 {
                     //arrived
@@ -73,9 +64,9 @@ namespace GenericStateSystem.ActionStates
         ;
             RaycastHit hit;
             Debug.DrawRay(p1,
-                _character.transform.TransformDirection(Vector3.forward) * 6f, Color.red);
+                _character.transform.TransformDirection(Vector3.forward) * 6f, Color.green);
             Debug.DrawRay(p1,
-                _character.transform.TransformDirection(Vector3.back) * 6f, Color.red);
+                _character.transform.TransformDirection(Vector3.back) * 6f, Color.green);
             if (Physics.SphereCast(p1, 1.5f, _character.transform.forward, out hit, 10, _character.whatToChase))
             {
                 targetDistance = hit.distance;
@@ -88,6 +79,7 @@ namespace GenericStateSystem.ActionStates
             if (targetDistance < 4f)
             {
                 Debug.Log($"Player in range {hit.distance}");
+                _character.currentTarget = hit.transform;
                 var chase = new ChaseState(_character, _character.stateMachine);
                 _character.stateMachine.MakeTransition(chase);
             }

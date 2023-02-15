@@ -35,7 +35,7 @@ namespace GenericStateSystem.ActionStates
 
         public override void UpdateState()
         {
-            TransitionState();    
+      
             _input.x = Input.GetAxis("Horizontal");
             _input.y = Input.GetAxis("Vertical");
         }
@@ -45,8 +45,6 @@ namespace GenericStateSystem.ActionStates
            // something that changes state here, crouch, jump etc
            if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.Space))
            {
-               // go jumpstate
-               //_character.stateMachine.InitState(new JumpState(_character, _character.stateMachine));
                _character.stateMachine.MakeTransition(new JumpState(_character, _character.stateMachine));
            }
         }
@@ -69,9 +67,15 @@ namespace GenericStateSystem.ActionStates
             _character.anim.SetFloat("Speed", _speed);
 
             if (_input.y < 0f && _character.useCharacterForward)
+            {
                 _direction = _input.y;
+              
+            }
             else
+            {
                 _direction = 0f;
+            }
+                
 
             _character.anim.SetFloat("Direction", _direction);
 

@@ -5,7 +5,7 @@ namespace GenericStateSystem.ActionStates
     {
         private int cooloff = 190;
         private int lastAttack = 0;
-        public AttackState(BaseCharacter _c, GenericStateMachine _s) : base(_c, _s)
+        public AttackState(BaseCharacter _c, StateMachine _s) : base(_c, _s)
         {
         }
 

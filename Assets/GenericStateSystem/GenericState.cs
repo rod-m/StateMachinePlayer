@@ -7,8 +7,8 @@ namespace GenericStateSystem
     public abstract class GenericState : IState
     {
         protected BaseCharacter _character;
-        protected GenericStateMachine _stateMachine;
-        protected GenericState(BaseCharacter _c, GenericStateMachine _s)
+        protected StateMachine _stateMachine;
+        protected GenericState(BaseCharacter _c, StateMachine _s)
         {
             _character = _c;
             _stateMachine = _s;

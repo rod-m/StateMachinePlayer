@@ -24,7 +24,7 @@ namespace GenericStateSystem
 
         #region StateMachineVariables
 
-        public GenericStateMachine stateMachine;
+        public StateMachine stateMachine;
 
         #endregion StateMachineVariables
 
@@ -34,7 +34,7 @@ namespace GenericStateSystem
         {
             anim = GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
-            stateMachine = new GenericStateMachine();
+            stateMachine = new StateMachine();
             defaultState = new DefaultState(this, stateMachine);
             stateMachine.InitState(defaultState);
         }

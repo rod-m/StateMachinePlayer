@@ -7,7 +7,7 @@ namespace GenericStateSystem.ActionStates
 
         private Quaternion _lookRotation;
         //private float _rotationSpeed = 5f;
-        public ChaseState(BaseCharacter _c, GenericStateMachine _s) : base(_c, _s)
+        public ChaseState(BaseCharacter _c, StateMachine _s) : base(_c, _s)
         {
         }
 

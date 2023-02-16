@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GenericStateSystem
 {
-    public class GenericStateMachine
+    public class StateMachine
     {
         public IState ActiveState { get; private set; }
         public void InitState(IState beginState)

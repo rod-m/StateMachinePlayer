@@ -3,8 +3,8 @@ namespace GenericStateSystem
     abstract public class NPCGenericState: IState
     {
         protected NPCBaseCharacter _character;
-        protected GenericStateMachine _stateMachine;
-        protected NPCGenericState(BaseCharacter _c, GenericStateMachine _s)
+        protected StateMachine _stateMachine;
+        protected NPCGenericState(BaseCharacter _c, StateMachine _s)
         {
             _character = _c as NPCBaseCharacter;
             _stateMachine = _s;

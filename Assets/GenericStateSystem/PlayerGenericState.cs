@@ -3,8 +3,8 @@ namespace GenericStateSystem
     abstract public class PlayerGenericState:IState
     {
         protected PlayerBaseCharacter _character;
-        protected GenericStateMachine _stateMachine;
-        protected PlayerGenericState(BaseCharacter _c, GenericStateMachine _s)
+        protected StateMachine _stateMachine;
+        protected PlayerGenericState(BaseCharacter _c, StateMachine _s)
         {
             _character = _c as PlayerBaseCharacter;
             _stateMachine = _s;

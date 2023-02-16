@@ -2,7 +2,7 @@ namespace GenericStateSystem.ActionStates
 {
     public class DefaultState : GenericState
     {
-        public DefaultState(BaseCharacter c, GenericStateMachine s) : base(c, s)
+        public DefaultState(BaseCharacter c, StateMachine s) : base(c, s)
         {
         }
         public override void BeginState() { }

@@ -22,7 +22,7 @@ namespace GenericStateSystem.ActionStates
         private Camera _mainCamera;
         private float _velocity;
         #endregion Variables
-        public MoveState(BaseCharacter c, GenericStateMachine s) : base(c, s)
+        public MoveState(BaseCharacter c, StateMachine s) : base(c, s)
         {
             
         }

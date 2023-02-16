@@ -12,7 +12,7 @@ namespace GenericStateSystem.ActionStates
         GameObject closestPoint = null;
         private int patrolIndex = 0;
         
-        public PatrolState(BaseCharacter _c, GenericStateMachine _s) : base(_c, _s)
+        public PatrolState(BaseCharacter _c, StateMachine _s) : base(_c, _s)
         {
             
         }

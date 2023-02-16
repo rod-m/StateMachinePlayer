@@ -7,7 +7,7 @@ namespace GenericStateSystem.ActionStates
         private Animator _anim;
         public float JumpForce = 10f;
         private int _startJump = 0;
-        public JumpState(BaseCharacter _c, GenericStateMachine _s) : base(_c, _s)
+        public JumpState(BaseCharacter _c, StateMachine _s) : base(_c, _s)
         {
         }
 
